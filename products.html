@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrKart - Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Product Page Styles */
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #794afa;
+            --dark: #1e1e1e;
+            --light: #ffffff;
+            --gray: #f5f5f5;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gray);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .products-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .products-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .products-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .buy-now {
+            flex: 1;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .buy-now:hover {
+            background-color: #ff5252;
+        }
+
+        .wishlist {
+            width: 40px;
+            height: 40px;
+            background-color: var(--gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .wishlist:hover {
+            background-color: #ff6b6b;
+            color: var(--light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products-title {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="products-header">
+            <h1 class="products-title">Our Products</h1>
+            <p>Discover the latest fashion trends in shirts, t-shirts, and jeans</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <span class="product-badge">Bestseller</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/61-jBuhtgZL._AC_UL1500_.jpg" alt="Amazon Essentials Men's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Amazon Essentials Men's Regular-Fit Short-Sleeve T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹264</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/42DWeDc" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71tJ5W7rWVL._AC_UL1500_.jpg" alt="Goodthreads Men's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Goodthreads Men's Slim-Fit Long-Sleeve Oxford Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹499</span>
+                        <span class="old-price">₹699</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/4jCQfob" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <span class="product-badge">Popular</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71S8U9VzLTL._AC_UL1500_.jpg" alt="Levi's Men's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Asus Laptop</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹34000</span>
+                        <span class="old-price">₹88899</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/3ENyC5J" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/61S9CbOjOIL._AC_UL1500_.jpg" alt="Hanes Women's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Hanes Women's EcoSmart Crewneck T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹499</span>
+                        <span class="old-price">₹899</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/4jCQfob" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <span class="product-badge">New</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71+Q6QH4ZVL._AC_UL1500_.jpg" alt="Amazon Essentials Women's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Amazon Essentials Women's Classic-Fit Short-Sleeve Woven Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹699</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/4jCQfob" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/81dZ+Q5X+BL._AC_UL1500_.jpg" alt="Lee Women's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Lee Women's Relaxed Fit Straight Leg Jean</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹349</span>
+                        <span class="old-price">₹499</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/4jCQfob" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <span class="product-badge">Sale</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/61S7BrMC6VL._AC_UL1500_.jpg" alt="Champion Men's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Champion Men's Powerblend Fleece T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹169</span>
+                        <span class="old-price">₹299</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://amzn.to/4jCQfob" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71UwSHSZRnL._AC_UL1500_.jpg" alt="Goodthreads Men's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Goodthreads Men's Regular-Fit Short-Sleeve Oxford Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹699</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Goodthreads-Mens-Regular-Fit-Short-Sleeve-Oxford/dp/B07Q5JQY6Q" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <span class="product-badge">Bestseller</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/81f8+tLH6ML._AC_UL1500_.jpg" alt="Wrangler Men's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Wrangler Men's Regular Fit Comfort Flex Waist Jean</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹399</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Wrangler-Regular-Comfort-Relaxed-Stonewash/dp/B001T4XQ1K" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71Qd+x1+3VL._AC_UL1500_.jpg" alt="Fruit of the Loom Women's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Fruit of the Loom Women's CoolBlend T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹999</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Fruit-Loom-Womens-CoolBlend-T-Shirt/dp/B01N7VQK7X" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <span class="product-badge">New</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71+Q6QH4ZVL._AC_UL1500_.jpg" alt="Amazon Essentials Women's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Amazon Essentials Women's Classic-Fit Short-Sleeve Woven Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹190</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Amazon-Essentials-Womens-Classic-Fit-Short-Sleeve/dp/B07Q5JQY6Q" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/81dZ+Q5X+BL._AC_UL1500_.jpg" alt="Lee Women's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Lee Women's Relaxed Fit Straight Leg Jean</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹399</span>
+                        <span class="old-price">₹499</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Lee-Womens-Relaxed-Straight-Canyon/dp/B001T4XQ1K" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card">
+                <span class="product-badge">Sale</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/61S7BrMC6VL._AC_UL1500_.jpg" alt="Champion Men's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Champion Men's Powerblend Fleece T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹199</span>
+                        <span class="old-price">₹299</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Champion-Mens-Powerblend-Fleece-T-Shirt/dp/B01N7VQK7X" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71UwSHSZRnL._AC_UL1500_.jpg" alt="Goodthreads Men's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Goodthreads Men's Regular-Fit Short-Sleeve Oxford Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹200</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Goodthreads-Mens-Regular-Fit-Short-Sleeve-Oxford/dp/B07Q5JQY6Q" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card">
+                <span class="product-badge">Bestseller</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/81f8+tLH6ML._AC_UL1500_.jpg" alt="Wrangler Men's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Wrangler Men's Regular Fit Comfort Flex Waist Jean</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹399</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Wrangler-Regular-Comfort-Relaxed-Stonewash/dp/B001T4XQ1K" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71Qd+x1+3VL._AC_UL1500_.jpg" alt="Fruit of the Loom Women's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Fruit of the Loom Women's CoolBlend T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹999</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Fruit-Loom-Womens-CoolBlend-T-Shirt/dp/B01N7VQK7X" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card">
+                <span class="product-badge">New</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71+Q6QH4ZVL._AC_UL1500_.jpg" alt="Amazon Essentials Women's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Amazon Essentials Women's Classic-Fit Short-Sleeve Woven Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹190</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Amazon-Essentials-Womens-Classic-Fit-Short-Sleeve/dp/B07Q5JQY6Q" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/81dZ+Q5X+BL._AC_UL1500_.jpg" alt="Lee Women's Jeans">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Jeans</span>
+                    <h3 class="product-title">Lee Women's Relaxed Fit Straight Leg Jean</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹399</span>
+                        <span class="old-price">₹499</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Lee-Womens-Relaxed-Straight-Canyon/dp/B001T4XQ1K" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card">
+                <span class="product-badge">Sale</span>
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/61S7BrMC6VL._AC_UL1500_.jpg" alt="Champion Men's T-Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">T-Shirts</span>
+                    <h3 class="product-title">Champion Men's Powerblend Fleece T-Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹342</span>
+                        <span class="old-price">₹599</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Champion-Mens-Powerblend-Fleece-T-Shirt/dp/B01N7VQK7X" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://m.media-amazon.com/images/I/71UwSHSZRnL._AC_UL1500_.jpg" alt="Goodthreads Men's Shirt">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Shirts</span>
+                    <h3 class="product-title">Goodthreads Men's Regular-Fit Short-Sleeve Oxford Shirt</h3>
+                    <div class="product-price">
+                        <span class="current-price">₹799</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://www.amazon.com/Goodthreads-Mens-Regular-Fit-Short-Sleeve-Oxford/dp/B07Q5JQY6Q" class="buy-now" target="_blank">Buy Now</a>
+                        <div class="wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (this.classList.contains('active')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#ff6b6b';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

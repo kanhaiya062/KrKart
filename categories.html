@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop by Category | KrKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #794afa;
+            --dark: #1e1e1e;
+            --light: #ffffff;
+            --gray: #f5f5f5;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .categories-header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .categories-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .categories-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .categories-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        .category-card {
+            position: relative;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.05);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            color: var(--light);
+        }
+
+        .category-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .category-desc {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            width: fit-content;
+            padding: 10px 25px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .shop-btn:hover {
+            background-color: var(--light);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Featured Products Section */
+        .featured-products {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .featured-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .products-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .product-slide {
+            min-width: 250px;
+            scroll-snap-align: start;
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-slide:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-slide-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-slide-info {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .product-slide-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .product-slide-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Categories Header -->
+        <div class="categories-header">
+            <h1 class="categories-title animate">Shop by Category</h1>
+            <p class="categories-subtitle animate" style="animation-delay: 0.2s;">Discover the perfect style for every occasion</p>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+            <!-- T-Shirts Category -->
+            <div class="category-card animate" style="animation-delay: 0.4s;">
+                <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="T-Shirts" class="category-img">
+                <div class="category-overlay">
+                    <h2 class="category-name">T-Shirts</h2>
+                    <p class="category-desc">Casual, comfortable, and stylish for everyday wear</p>
+                    <a href="https://amzn.to/4cTxHNK" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- Shirts Category -->
+            <div class="category-card animate" style="animation-delay: 0.6s;">
+                <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1325&q=80" alt="Shirts" class="category-img">
+                <div class="category-overlay">
+                    <h2 class="category-name">Shirts</h2>
+                    <p class="category-desc">Formal and casual shirts for a polished look</p>
+                    <a href="https://amzn.to/4cTxHNK" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- Jeans Category -->
+            <div class="category-card animate" style="animation-delay: 0.8s;">
+                <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" alt="Jeans" class="category-img">
+                <div class="category-overlay">
+                    <h2 class="category-name">Jeans</h2>
+                    <p class="category-desc">Classic denim for any outfit</p>
+                    <a href="https://amzn.to/4cTxHNK" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured T-Shirts -->
+        <div class="featured-products" id="t-shirts">
+            <h2 class="featured-title">Featured T-Shirts</h2>
+            <div class="products-slider">
+                <!-- Product 1 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/61-jBuhtgZL._AC_UL1500_.jpg" alt="T-Shirt 1" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Amazon Essentials Men's T-Shirt</h3>
+                        <p class="product-slide-price">₹264</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/71Qd+x1+3VL._AC_UL1500_.jpg" alt="T-Shirt 2" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Fruit of the Loom Women's T-Shirt</h3>
+                        <p class="product-slide-price">₹999</p>
+                    </div>
+                </div>
+                <!-- Add more products as needed -->
+            </div>
+        </div>
+
+        <!-- Featured Shirts -->
+        <div class="featured-products" id="shirts">
+            <h2 class="featured-title">Featured Shirts</h2>
+            <div class="products-slider">
+                <!-- Product 1 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/71UwSHSZRnL._AC_UL1500_.jpg" alt="Shirt 1" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Goodthreads Men's Shirt</h3>
+                        <p class="product-slide-price">₹200</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/71+Q6QH4ZVL._AC_UL1500_.jpg" alt="Shirt 2" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Amazon Essentials Women's Shirt</h3>
+                        <p class="product-slide-price">₹1890</p>
+                    </div>
+                </div>
+                <!-- Add more products as needed -->
+            </div>
+        </div>
+
+        <!-- Featured Jeans -->
+        <div class="featured-products" id="jeans">
+            <h2 class="featured-title">Featured Jeans</h2>
+            <div class="products-slider">
+                <!-- Product 1 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/81f8+tLH6ML._AC_UL1500_.jpg" alt="Jeans 1" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Wrangler Men's Jeans</h3>
+                        <p class="product-slide-price">$39.99</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-slide">
+                    <img src="https://m.media-amazon.com/images/I/81dZ+Q5X+BL._AC_UL1500_.jpg" alt="Jeans 2" class="product-slide-img">
+                    <div class="product-slide-info">
+                        <h3 class="product-slide-title">Lee Women's Jeans</h3>
+                        <p class="product-slide-price">$34.99</p>
+                    </div>
+                </div>
+                <!-- Add more products as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate');
+            
+            animateElements.forEach((el, index) => {
+                el.style.opacity = '0';
+            });
+
+            setTimeout(() => {
+                animateElements.forEach((el, index) => {
+                    el.style.animationDelay = `${index * 0.2}s`;
+                    el.classList.add('animate');
+                });
+            }, 100);
+        });
+
+        // Smooth scrolling for category links
+        document.querySelectorAll('.shop-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
